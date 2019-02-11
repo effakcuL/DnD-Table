@@ -1,4 +1,4 @@
-#DnD Table
+# DnD Table
 
 This is a small side project where I am building a table for Dungeons&Dragons as well as tabletop games as a christmas gift for my girlfriend.
 
