@@ -8,3 +8,15 @@ So far I have a rough concept for the drawers as CAD model using openSCAD:
 
 ![](Drawers.gif)
 
+## First Update
+
+I started adding the table itself and ran into some difficulties with the handle that opens the lid, that still have to be figured out. 
+Furthermore I noticed, that the drawer kind of needs some space at its end that stays under the table for stability of the drawers and for being able to open the lids of the drawers.
+
+Additionally I started adding the drawer(?) for the DM-Screen and realized that managing angles is hard :D
+
+So by now the thing looks like this (keep in mind so far it is about concept... not design):
+
+![](TableV1.gif)
+
+Tomorrow, I intend to figure out the difficulties with the DM-Screen and put the USB-Slots into the drawers. Maybe I even manage to figure out the drawer handles
