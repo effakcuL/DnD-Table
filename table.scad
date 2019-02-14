@@ -1,48 +1,67 @@
 drawerHeight = 10;
 drawerWidth = 40;
-drawerDepth = 20;
-drawerOverlap = 17.15;
+drawerDepth = 18;
+drawerOverlap = 12;
 wallThickness = 1;
+maxStep = 8;
+tableHeight = 80;
 
 
-translate([1,10,100-drawerHeight-5])
+translate([1,10,tableHeight-drawerHeight-5])
 difference() {
-    cube([wallThickness,160,drawerHeight+5]);
+    *cube([wallThickness,160,drawerHeight+5]);
 
     translate([0,-50,2.5]){
+        
         for(numDrawers = [1:3]){
-            translate([-0.1,55*numDrawers,0]) cube([drawerDepth,drawerWidth,drawerHeight]);
+           * translate([-0.1,55*numDrawers,0]) cube([drawerDepth,drawerWidth,drawerHeight]);
         }
-    }
-}
-translate([drawerDepth+drawerOverlap,0,100-drawerHeight-2.5]) rotate([0,0,180]) {
-    for(numDrawers = [1:3]){
-        translate([0,-55*numDrawers,0]) createDrawer(drawerDepth,drawerHeight,drawerWidth,wallThickness,drawerOverlap);
+    
     }
 }
 
-translate([10,1,100-drawerHeight-5]) cube([80,wallThickness,drawerHeight+2.5]);
+translate([drawerDepth+drawerOverlap,0,tableHeight-drawerHeight-2.5]) rotate([0,0,180]) {
+    //for(numDrawers = [1:3]){
+        translate([0,-60,0]) rotate([0,0,30])createDrawer(drawerDepth,drawerHeight,drawerWidth,wallThickness,drawerOverlap);
+        translate([2,-110,0]) createDrawer(drawerDepth,drawerHeight,drawerWidth,wallThickness,drawerOverlap);
+        translate([-18,-150,0]) rotate([0,0,-30])createDrawer(drawerDepth,drawerHeight,drawerWidth,wallThickness,drawerOverlap);
 
 
-translate([10,1-40,100-2.5]){
-    difference(){
-        cube([80,100,2.5]);
-        *translate([10,23,-1])translate([5,0,0])rotate([70,0,25])translate([-5,0,0])cube([10,25,2.5]);
-        translate([35,32,-1])translate([5,0,0])rotate([70,0,0])translate([-5,0,0])cube([10,25,2.5]);
-        translate([35,32,-1])
-        
-        
-        *translate([53,30,-1])translate([5,0,0])rotate([70,0,-25])translate([-5,0,0])cube([30,25,2.5]);
+    //}
+}
+translate([drawerDepth+drawerOverlap,0,tableHeight-drawerHeight-2.5]) translate([40,185,0])rotate([0,0,0]) {
+    //for(numDrawers = [1:3]){
+        translate([2,-70,0]) rotate([0,0,30])createDrawer(drawerDepth,drawerHeight,drawerWidth,wallThickness,drawerOverlap);
+        translate([3,-115,0]) createDrawer(drawerDepth,drawerHeight,drawerWidth,wallThickness,drawerOverlap);
+        translate([-20,-160,0]) rotate([0,0,-30])createDrawer(drawerDepth,drawerHeight,drawerWidth,wallThickness,drawerOverlap);
 
-    }
+
+    //}
 }
 
+
+
+createDMScreen();
+tableTop();
+
+/*
+//Regular Legs
 cube([10,10,100]);
 translate([0,170,0])cube([10,10,100]);
 translate([90,170,0])cube([10,10,100]);
 translate([90,0,0])cube([10,10,100]);
+*/
+
+//Fancy Leg
+translate([20,10,0])cube([60,20,5]);
+translate([40,30,0]) cube([20,120,5]);
+translate([20,150,0]) cube([60,20,5]);
+translate([40,80,5]) cube([20,20,tableHeight -5]);
 
 
+
+
+/*
 translate([99,10,100-drawerHeight-5])
 difference() {
     cube([wallThickness,160,drawerHeight+5]);
@@ -58,13 +77,25 @@ translate([100-(drawerDepth+drawerOverlap),180,100-drawerHeight-2.5]) rotate([0,
     for(numDrawers = [1:3]){
         translate([0,-55*numDrawers,0]) createDrawer(drawerDepth,drawerHeight,drawerWidth,wallThickness,drawerOverlap);
     }
+}*/
+
+
+
+module tableTop(){
+    translate([0,0,tableHeight])
+    difference(){
+        cube([100,180,3]);
+        translate([0,57,-1])rotate([0,0,-60])translate([0,-40,0])cube([66,40,5]);
+        translate([0,180-57,-1])rotate([0,0,60])translate([0,,0])cube([66,40,5]);
+    
+        translate([100,57,-1])rotate([0,0,180+60])translate([0,0,0])cube([66,40,5]);
+        translate([100,180-57,-1])rotate([0,0,120])translate([0,-40,0])cube([66,40,5]);
+    
+    }
 }
-translate([-3,-3,100])cube([106,186,3]);
     
     
-    module createDrawer (width,height,depth,thickness,overlap)
-    {
-        maxStep = 8;
+module createDrawer (width,height,depth,thickness,overlap){
         translate([(width+overlap-10)*min($t*maxStep,1),0,0]) {
             //bottom
             color("red") cube([width+overlap,depth,thickness/2]);
@@ -122,6 +153,7 @@ translate([-3,-3,100])cube([106,186,3]);
         }
     }
     
+
 module outerLid(width,height,depth,thickness,opened,knobRot){
     
     translate([thickness,0,-thickness/2]){
@@ -166,6 +198,7 @@ module outerLid(width,height,depth,thickness,opened,knobRot){
     
 }
 
+
 module innerLid(width,height,depth,thickness,opened){
     translate([thickness,0,-thickness/2]){
     
@@ -198,3 +231,75 @@ module innerLid(width,height,depth,thickness,opened){
         }
     }
 }
+
+
+module createDMScreen(){
+    screenThickness =2.5;
+    screenHeight = 25;
+
+    //Blind
+    *translate([10,1,tableHeight-drawerHeight-5]) cube([80,wallThickness,drawerHeight+2.5]);
+    
+    //Screen
+    translate([10,5-40*$t,tableHeight-2.5]){
+        difference(){
+            //Board
+            translate([8,0,0]) difference(){
+                cube([64,70,2.5]);
+                translate([-14,50,-0.1])rotate([0,0,45]) translate([-5,-25,0])cube([30,40,2.7]);
+                translate([45,60,-0.1])rotate([0,0,-45]) translate([0,-10,0])cube([40,40,2.7]);
+
+                translate([-1,5,-0.1])rotate([0,0,45]) translate([-5,-25,0])cube([20,40,2.7]);
+                translate([45,5,-0.1])rotate([0,0,-45]) translate([0,-10,0])cube([20,40,2.7]);
+            }
+            //Left Slid
+            translate([10,24,-1])rotate([70,0,25])cube([10,25,screenThickness]);
+            
+            //Center Slid
+            translate([35,32,-1])rotate([70,0,0])cube([10,5,screenThickness]);
+            
+            //Right Slid
+            translate([60,29,-1])rotate([70,0,-25])cube([10,5,screenThickness]);
+
+        }
+        //Center Screenpiece
+        translate([35,32,-1])rotate([70,0,0])translate([0,3,0])
+        union(){
+            translate([0,-2,0])cube([10,4,2.4]);
+            difference(){
+                translate([-10,0,0])cube([30,screenHeight,2.5]);
+                translate([-10,0,0])rotate([20,0,0])translate([0,0,-1]) cube([32,1,10]);
+            }
+        }
+        //Left Screenpiece
+        translate([10,24,-1])rotate([70,0,25])translate([0,3,0])
+        union(){
+            translate([0,-2,0])cube([10,4,2.4]);
+            difference(){
+                translate([-10,0,0])cube([31,screenHeight,2.5]);
+                translate([-10,0,0])rotate([20,0,0])translate([0,0,-1]) cube([32,1,10]);
+            }
+        }
+        //Right Screenpiece
+        translate([60,29,-1])rotate([70,0,-25])translate([0,3,0])
+        union(){
+            translate([0,-2,0])cube([10,4,2.4]);
+            difference(){
+                translate([-10,0,0])cube([31,screenHeight,2.5]);
+                translate([-10,0,0])rotate([20,0,0])translate([0,0,-1]) cube([32,1,10]);
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
