@@ -29,3 +29,8 @@ Ok, no USB-Slots... Despite all my efforts it still looked kind of dull, so afte
 
 
 
+## Another Update:
+
+Still no USB-Slots. Mainly Cleaned Up some messes today, so that customizing and doing further edits will hopefully be a lot easier. Kind of redid the DM-Screen as I had some issues with the former version. Also Changed the OpenScad Settings a bit to make the table look more wood-like, which amazed the shit out of me!
+
+![](OctagonalTable2.gif)
