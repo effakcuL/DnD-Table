@@ -93,45 +93,6 @@ legWidth = 10;
 legPieceLength= (legHeight/2+ cos(90-legAngle)*legWidth ) /cos(legAngle);
 legPieceWidth= (legHeight/2+ sin(90-legAngle)*legWidth ) /tan(legAngle);
 
-//difference(){
-//union(){
-//centerPiece
-//translate([50,67,legHeight/2-cos(90-legAngle)*legWidth])rotate([0,0,0])cube([5,45,10*1.414]);
-
-
-//leftCenter
-//translate([surfaceDepth/2-legWidth/2,surfaceWidth/2-wholeLegWidth/2,0]){
-//translate([0,0,0])rotate([-legAngle,0,0])cube([5,10,legPieceLength]);
-//translate([0,0+legPieceWidth,legHeight/2-cos(90-legAngle)*legWidth])rotate([legAngle,0,0])cube([5,10,legPieceLength]);
-//}
-
-//rightCenter
-//translate([surfaceDepth/2,surfaceWidth/2+wholeLegWidth/2,0])rotate([0,0,180]){
-//translate([0,0,0])rotate([-legAngle,0,0])cube([5,10,legPieceLength]);
-//translate([0,0+legPieceWidth,legHeight/2-cos(90-legAngle)*legWidth])rotate([legAngle,0,0])cube([5,10,legPieceLength]);
-//}
-
-/*
-translate([50,170,-2.5])rotate([60,0,0])cube([5,10,tableHeight]);
-translate([50,100,40.5])rotate([-60,0,0])cube([5,10,tableHeight]);
-*/
-
-//translate([surfaceDepth/2 - wholeLegBreadth/2,footIntersection,legHeight/2])rotate([-50,0,270+90-surfaceAngle])cube([5,10,tableHeight-20]);
-//translate([surfaceDepth/2 + wholeLegBreadth/2,110,40.5])rotate([-50,0,-surfaceAngle])cube([5,10,tableHeight-20]);
-/*
-translate([55,70,33])rotate([50,0,65])cube([5,10,tableHeight-20]);
-translate([45,80,33])rotate([50,0,-65])cube([5,10,tableHeight-20]);
-
-
-translate([90,130,0])rotate([50,0,-65])cube([5,10,tableHeight-20]);
-translate([10,120,0])rotate([50,0,65])cube([5,10,tableHeight-20]);
-
-translate([5,60,0])rotate([-50,0,-65])cube([5,10,tableHeight-20]);
-translate([100,50,5])rotate([-50,0,65])cube([5,10,tableHeight-20]);
-*/
-//}
-//translate([-100,-50,legHeight])color("gray")cube([300,300,10]);
-//}
 translate([55,45,0])rotate([0,0,180]){
     chevron();
     translate([-30,-20,0])rotate([0,0,65])chevron();
@@ -143,7 +104,13 @@ translate([50,135,0]){
     chevron();
     translate([-30,-20,0])rotate([0,0,65])chevron();
     translate([32.5,-15,0])rotate([0,0,-65])chevron();
-    translate([-7.5,-45,18])cube([20,20,28]);
+    translate([-7.5,-45,18])
+    difference(){
+        cube([20,20,28]);
+        rotate([0,0,65])translate([0,6,0])cube([300,100,30]);
+        rotate([0,0,115])translate([0,0,0])cube([300,100,50]);
+
+    }
 }
 module chevronPiece(){
     chevronThickness = 5;
@@ -181,19 +148,23 @@ module tableTop(){
     tableWidth = surfaceWidth;
     tableDepth = surfaceDepth;
     angle = 65;
+    translate([10,10,tableHeight-15]){
+              color("green")      octagon(tableWidth-20,tableDepth-20,15,angle);
 
+    };
     translate([0,0,tableHeight+3]){  
         *difference(){
             octagon(tableWidth,tableDepth,1.5,angle);
             translate([5,10,-0.1]) color("green") octagon(tableWidth-20,tableDepth-10,1.5,angle);
         }
+
         difference(){
             translate([0,0,-3])octagon(tableWidth,tableDepth,1.5,angle);
-            translate([20,40,-7.5])cube([59,99,8]);
+            #translate([20,40,-7.5])cube([59,99,8]);
             //#translate([20,30,-7.5])cube([69,116,8]);
 
         }
-#translate([20,40,-9])cube([59,99,7.5]);
+        #translate([20,40,-9])cube([59,99,7.5]);
 
 
         //#translate([26,40,-7.5])cube([48,80,8]);
@@ -354,9 +325,9 @@ module innerLid(width,height,depth,thickness,opened){
 
 
 
+
+
 module createDMScreen2(){
-
-
 
 
     screenThickness =2.5;
@@ -380,7 +351,6 @@ module createDMScreen2(){
 module createPullout2(screenThickness,screenHeight){
     difference(){
         //Board
-
 
 
         *translate([0,0,0]) difference(){
